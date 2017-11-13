@@ -17,6 +17,7 @@ import {
   Text,
   TextInput,
   Image,
+  ScrollView,
 } from 'react-native';
 import {
   Icon,
@@ -42,6 +43,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     height: 420,
   },
+  buttonStyle: {
+    paddingBottom: '20px',
+  }
 });
 
 class SignUp extends React.Component {
@@ -70,12 +74,12 @@ class SignUp extends React.Component {
   }
 
   async handleSignUp() {
-    const { username, password, email, phoneNumber } = this.state;
+    const { username, password, name, email, phoneNumber } = this.state;
     let userConfirmed = true;
 
     try {
       await new Promise((resolve, reject) => {
-        Auth.handleNewCustomerRegistration(username, password, { Name: 'email', Value: email }, { Name: 'phone_number', Value: phoneNumber }, (err, result) => {
+        Auth.handleNewCustomerRegistration(username, password, {Name: 'name', Value: name }, { Name: 'email', Value: email }, { Name: 'phone_number', Value: phoneNumber }, (err, result) => {
           if (err) {
             reject(err);
             return;
@@ -149,9 +153,26 @@ class SignUp extends React.Component {
   render() {
     return (
       <View style={styles.bla}>
+        <ScrollView>
         <View style={styles.formContainer}>
-          <View>
+        <View>
             <FormValidationMessage>{this.state.errorMessage}</FormValidationMessage>
+            <FormLabel>Name</FormLabel>
+            <FormInput
+              editable
+              autoCapitalize="none"
+              autoCorrect={false}
+              underlineColorAndroid="transparent"
+              placeholder="Enter your Name"
+              returnKeyType="next"
+              ref="name"
+              textInputRef="nameInput"
+              onSubmitEditing={() => { this.refs.username.refs.usernameInput.focus() }}
+              value={this.state.name}
+              onChangeText={name => this.setState({ name })} />
+            {false && <FormValidationMessage>Error message</FormValidationMessage>}
+          </View>
+          <View>
             <FormLabel>Username</FormLabel>
             <FormInput
               editable
@@ -219,7 +240,7 @@ class SignUp extends React.Component {
           <Button
             raised
             large
-            title="Sign Up"
+            title="REGISTER"
             backgroundColor={colors.primary}
             icon={{ name: 'lock', size: 18, type: 'font-awesome' }}
             onPress={this.handleSignUp} />
@@ -230,6 +251,7 @@ class SignUp extends React.Component {
               onSuccess={this.handleMFASuccess}
             />}
         </View>
+        </ScrollView>
       </View>
     );
   }

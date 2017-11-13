@@ -19,6 +19,7 @@ import {
   ActivityIndicator,
   Modal,
   Dimensions,
+  ScrollView,
 } from 'react-native';
 import {
   FormLabel,
@@ -93,7 +94,7 @@ class LogIn extends React.Component {
     this.doLogin = this.doLogin.bind(this);
     this.onLogIn = this.onLogIn.bind(this);
   }
-
+  
   async doLogin() {
     const { auth } = this.props;
     const { username, password } = this.state;
@@ -191,6 +192,7 @@ class LogIn extends React.Component {
   render() {
     return (
       <View style={styles.bla}>
+        <ScrollView>
         {this.state.showMFAPrompt &&
           <MFAPrompt
             onValidate={this.handleMFAValidate}
@@ -209,7 +211,7 @@ class LogIn extends React.Component {
         <View style={styles.imageContainer}>
           <Image
             resizeMode='contain'
-            source={require('../../assets/images/puppy.png')}
+            source={require('../../assets/images/profileicon.png')}
             style={styles.puppy}
           />
         </View>
@@ -248,13 +250,14 @@ class LogIn extends React.Component {
             containerViewStyle={{ marginTop: 20 }}
             backgroundColor={colors.primary}
             large
-            title="SIGN IN"
+            title="LOGIN"
             onPress={this.handleLogInClick} />
           <Text
             onPress={() => this.props.navigation.navigate('ForgotPassword')}
             style={styles.passwordResetButton}
           >Forgot your password?</Text>
         </View>
+        </ScrollView>
       </View>
     );
   }

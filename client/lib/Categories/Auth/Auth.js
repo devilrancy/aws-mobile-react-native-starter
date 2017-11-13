@@ -177,11 +177,15 @@ function checkRegistrationError(error) {
   }
 }
 
-function handleNewCustomerRegistration(username, password, email, phone, registerCallBack) {
+function handleNewCustomerRegistration(username, password, name, email, phone, registerCallBack) {
   const attributeList = [];
+  const attributeName = new CognitoUserAttribute(name);
   const attributeEmail = new CognitoUserAttribute(email);
   const attributePhone = new CognitoUserAttribute(phone);
 
+  if (name.Value) {
+    attributeList.push(attributeName);
+  }
   if (email.Value) {
     attributeList.push(attributeEmail);
   }

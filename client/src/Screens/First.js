@@ -22,7 +22,7 @@ import { colors } from 'theme';
 
 const styles = StyleSheet.create({
   tabBarLabel: { marginLeft: 9 },
-  tabBarIconContainer: { flexDirection: 'row', alignItems: 'center', height: 30 },
+  tabBarIconContainer: { flexDirection: 'row', alignItems: 'center', height: 30, justifyContent: 'flex-end', flex: 1 },
 });
 
 const FirstScreen = TabNavigator({
@@ -39,11 +39,11 @@ const FirstScreen = TabNavigator({
       );
     },
     navigationOptions: {
-      tabBarLabel: 'Sign In',
+      tabBarLabel: 'Login',
       tabBarIcon: ({ tintColor }) => (
         <View style={styles.tabBarIconContainer}>
           <Icon type='font-awesome' name="sign-in" style={styles.tabBarIcon} color={tintColor} />
-          {Platform.OS === 'ios' && <Text style={[styles.tabBarLabel, { color: tintColor }]}>SIGN IN</Text>}
+          {Platform.OS === 'ios' && <Text style={[styles.tabBarLabel, { color: tintColor }]}>LOGIN IN</Text>}
         </View>
       ),
     },
@@ -61,11 +61,11 @@ const FirstScreen = TabNavigator({
       )
     },
     navigationOptions: {
-      tabBarLabel: 'Sign Up',
+      tabBarLabel: 'Register',
       tabBarIcon: ({ tintColor }) => (
         <View style={styles.tabBarIconContainer}>
-          <Icon type='font-awesome' name="pencil-square-o" style={styles.tabBarIcon} color={tintColor} />
-          {Platform.OS === 'ios' && <Text style={[styles.tabBarLabel, { color: tintColor }]}>SIGN UP</Text>}
+          <Icon type='font-awesome' name="user-plus" style={styles.tabBarIcon} color={tintColor} />
+          {Platform.OS === 'ios' && <Text style={[styles.tabBarLabel, { color: tintColor }]}>REGISTER</Text>}
         </View>
       )
     },
@@ -81,6 +81,6 @@ const FirstScreen = TabNavigator({
   });
 
 export default (props) => {
-  const { screenProps, ...otherProps } = props;
-  return <FirstScreen screenProps={{ ...screenProps, ...otherProps }} />
+  const { lockMode ,screenProps, ...otherProps } = props;
+  return <FirstScreen screenProps={{ lockMode: 'locked-closed',...screenProps, ...otherProps }} />
 };
